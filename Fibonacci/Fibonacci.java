@@ -27,9 +27,6 @@ public class Fibonacci {
         return map.get(n);
     }
     
-    /*
-    *  If you want to write your own tests, put them here.
-    */
     public static void main(String[] args) {
         int i = 0;
         while (i <= 500) {
