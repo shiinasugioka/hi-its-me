@@ -23,7 +23,6 @@ public class Inversion {
         return result;
     }
 
-    // start = 0, stop = n -1
     private static int helper(int[] A, int start, int stop) {
         int inversions = 0;
 
@@ -59,17 +58,14 @@ public class Inversion {
         }
         while(right <= stop) {
             temp[curr++]= A[right++];
-            inv += (mid - left) + 1; //can skip. mid-left+1 is 0 here.
+            inv += (mid - left) + 1;
         }
-        for(int i = start; i <= stop; i++) { //copy back into A, now sorted
+        for(int i = start; i <= stop; i++) {
             A[i] = temp[i];
         }
         return inv;
     }
 
-    /*
-    * If you want to write your own tests, put them here.
-    */
     public static void main(String[] args) {
         int[] test = {5, 2, 4, 3, 1};
         System.out.println(countInversions(5, test)); // should be 5
