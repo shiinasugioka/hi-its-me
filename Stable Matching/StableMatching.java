@@ -79,13 +79,6 @@ public class StableMatching {
         return false;
     }
     
-    /*
-    * A short sanity check is provided to help you see what the input and output
-    * look like :)
-    * 
-    * You can also modify the provided main method for your own test cases. This
-    * method will not be graded.
-    */
     public static void main(String[] args) {
         int[][] prefHorses = {
             { 1, 0, 2}, // Preferences of h0
