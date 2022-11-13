@@ -4,28 +4,28 @@ public class StableMatching {
     /*
     * Generates a stable matching.
     * 
-    * @param prefHorses Preferences of the horses. prefHorses[i] lists the indices
-    * of the riders that the i-th horse prefers, in order of preference.
+    * @param prefM Preferences of M. prefM[i] lists the indices
+    * of F that the i-th M prefers, in order of preference.
     * 
-    * @param prefRiders Preferences of the riders. prefHorses[i] lists the
-    * indices of the horses that the i-th rider prefers, in order of preference.
+    * @param prefF Preferences of F. prefM[i] lists the
+    * indices of M that the i-th F prefers, in order of preference.
     * 
-    * @param horseOptimal if true, the generated stable matching should be most
-    * optimal for the horses. Otherwise, it should be most optimal for the riders.
+    * @param M Optimal if true, the generated stable matching should be most
+    * optimal for M. Otherwise, it should be most optimal for F.
     * 
     * @return Computed stable matching. It is a 1D array, where arr[i]=j means the
-    * i-th horse is matched to the j-th rider.
+    * i-th M is matched to the j-th F.
     */
-    public static int[] findStableMatching(int[][] prefHorses, int[][] prefRiders, boolean horseOptimal) {
-        assert prefHorses.length == prefRiders.length;
-        int N = prefHorses.length;
+    public static int[] findStableMatching(int[][] prefM, int[][] prefF, boolean MOptimal) {
+        assert prefM.length == prefF.length;
+        int N = prefM.length;
 
-        int[][] prefProposer = prefRiders;
-        int[][] prefAccepter = prefHorses;
+        int[][] prefProposer = prefF;
+        int[][] prefAccepter = prefM;
 
-        if (!horseOptimal) {
-            prefProposer = prefHorses;
-            prefAccepter = prefRiders;
+        if (!MOptimal) {
+            prefProposer = prefM;
+            prefAccepter = prefF;
         }
         
         int[] result = new int[N];
@@ -54,7 +54,7 @@ public class StableMatching {
             }
         }
 
-        if (!horseOptimal) {
+        if (!MOptimal) {
             Map<Integer, Integer> map = new HashMap<>();
             for (int i = 0; i < result.length; i++) {
                 map.put(result[i], i);
@@ -66,7 +66,7 @@ public class StableMatching {
         return result;
     }
     
-    // returns true if horse prefers current match over next proposed option
+    // returns true if M prefers current match over next proposed option
     private static boolean preferKeep(int[] preference, int curr, int next, int N) {
         for (int i = 0; i < N; i++) {
             if (preference[i] == curr) {
@@ -80,20 +80,20 @@ public class StableMatching {
     }
     
     public static void main(String[] args) {
-        int[][] prefHorses = {
-            { 1, 0, 2}, // Preferences of h0
+        int[][] prefM = {
+            { 1, 0, 2}, // Preferences of M0
             { 0, 2, 1},
             { 2, 0, 1}
         };
-        int[][] prefRiders = {
-            { 0, 1, 2}, // Preferences of h0
+        int[][] prefF = {
+            { 0, 1, 2}, // Preferences of F0
             { 1, 2, 0},
             { 0, 1, 2}
         };
         
-        System.out.printf("Horse-optimal: ");
-        System.out.println(Arrays.toString(findStableMatching(prefHorses, prefRiders, true)));
-        System.out.printf("Rider-optimal: ");
-        System.out.println(Arrays.toString(findStableMatching(prefHorses, prefRiders, false)));
+        System.out.printf("M-optimal: ");
+        System.out.println(Arrays.toString(findStableMatching(prefM, prefF, true)));
+        System.out.printf("F-optimal: ");
+        System.out.println(Arrays.toString(findStableMatching(prefM, prefF, false)));
     }
 }
